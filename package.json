@@ -1,0 +1,115 @@
+{
+  "name": "xian-contract-linter",
+  "displayName": "Xian Contract Linter",
+  "description": "Real-time linter for Xian contracts with framework-specific validation",
+  "version": "1.0.0",
+  "publisher": "xian-dev",
+  "icon": "xianlogo.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xian-dev/xian-contract-linter"
+  },
+  "bugs": {
+    "url": "https://github.com/xian-dev/xian-contract-linter/issues"
+  },
+  "homepage": "https://github.com/xian-dev/xian-contract-linter#readme",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Linters",
+    "Programming Languages",
+    "Other"
+  ],
+  "keywords": [
+    "xian",
+    "blockchain",
+    "smart contracts",
+    "linter",
+    "python",
+    "cryptocurrency",
+    "web3",
+    "dapp"
+  ],
+  "galleryBanner": {
+    "color": "#1e1e1e",
+    "theme": "dark"
+  },
+  "activationEvents": [
+    "onLanguage:python"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "python",
+        "extensions": [
+          ".py"
+        ],
+        "aliases": [
+          "Python",
+          "python"
+        ]
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "Xian Contract Linter",
+      "properties": {
+        "xianLinter.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable/disable Xian contract linter"
+        },
+        "xianLinter.autoDetect": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically detect Xian contract files (with con_ prefix)"
+        },
+        "xianLinter.showSuggestions": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show best practice suggestions"
+        },
+        "xianLinter.strictMode": {
+          "type": "boolean",
+          "default": false,
+          "description": "Strict mode: show all warnings as errors"
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "xianLinter.lintCurrentFile",
+        "title": "Analyze current file",
+        "category": "Xian Linter"
+      },
+      {
+        "command": "xianLinter.toggleLinter",
+        "title": "Toggle Linter",
+        "category": "Xian Linter"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "xianLinter.lintCurrentFile",
+          "when": "resourceExtname == .py",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "16.x",
+    "@types/vscode": "^1.74.0",
+    "@vscode/vsce": "^3.6.0",
+    "typescript": "^4.9.4"
+  }
+}
