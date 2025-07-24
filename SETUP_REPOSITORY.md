@@ -21,7 +21,7 @@ xian-contract-linter-extension/
 ├── .gitignore                  # Git ignore rules
 ├── .vscodeignore              # Extension package ignore
 ├── xianlogo.png               # Official logo
-├── ejemplo_contrato.py        # Test contract
+├── eg_contract.py        # Test contract
 ├── install-extension.bat      # User installer
 ├── uninstall-and-reinstall.bat # Clean installer
 ├── INSTRUCTIONS.md            # User guide
