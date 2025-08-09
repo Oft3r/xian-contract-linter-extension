@@ -48,7 +48,14 @@ export class XianLinter {
         ['exec', 'exec is not allowed for security reasons'],
         ['open', 'open() is not allowed in contracts'],
         ['input', 'input() is not allowed in contracts'],
-        ['print', 'print() is not available in contracts (use return or events)']
+        ['print', 'print() is not available in contracts (use return or events)'],
+        ['float', 'float() is a prohibited builtin. Use mathematical operations like +0.0 to convert ContractingDecimal'],
+        ['int', 'int() is a prohibited builtin. Use mathematical operations for type conversion'],
+        ['str', 'str() is a prohibited builtin. Use string concatenation with empty strings for conversion'],
+        ['bool', 'bool() is a prohibited builtin. Use explicit comparisons'],
+        ['len', 'len() is a prohibited builtin. Use object-specific methods'],
+        ['type', 'type() is a prohibited builtin'],
+        ['isinstance', 'isinstance() is a prohibited builtin. Use explicit comparisons']
     ]);
 
     private prohibitedImports = new Set([
@@ -107,6 +114,41 @@ export class XianLinter {
             pattern: /random\.\w+\(/,
             message: 'Make sure to call random.seed() before using random functions',
             type: 'best_practice'
+        },
+        {
+            pattern: /float\s*\(/,
+            message: 'float() is a prohibited builtin. For ContractingDecimal conversion use: value + 0.0',
+            type: 'syntax_error'
+        },
+        {
+            pattern: /int\s*\(/,
+            message: 'int() is a prohibited builtin. For conversion use mathematical operations like: value // 1',
+            type: 'syntax_error'
+        },
+        {
+            pattern: /str\s*\(/,
+            message: 'str() is a prohibited builtin. For string conversion use: "" + value',
+            type: 'syntax_error'
+        },
+        {
+            pattern: /bool\s*\(/,
+            message: 'bool() is a prohibited builtin. Use explicit comparisons instead',
+            type: 'syntax_error'
+        },
+        {
+            pattern: /len\s*\(/,
+            message: 'len() is a prohibited builtin. Use object-specific methods',
+            type: 'syntax_error'
+        },
+        {
+            pattern: /type\s*\(/,
+            message: 'type() is a prohibited builtin',
+            type: 'syntax_error'
+        },
+        {
+            pattern: /isinstance\s*\(/,
+            message: 'isinstance() is a prohibited builtin. Use explicit comparisons',
+            type: 'syntax_error'
         }
     ];
 
@@ -228,12 +270,52 @@ export class XianLinter {
             // Verificar funciones prohibidas
             for (const [func, message] of this.prohibitedFunctions) {
                 if (new RegExp(`\\b${func}\\s*\\(`).test(line)) {
+                    const errorType = ['float', 'int', 'str', 'bool', 'len', 'type', 'isinstance'].includes(func) ? 'syntax_error' : 'security';
+                    
                     results.warnings.push({
                         line: lineNum,
                         message,
-                        type: 'security',
+                        type: errorType,
                         code: trimmed
                     });
+
+                    // Añadir sugerencias específicas para conversiones de tipo
+                    if (func === 'float') {
+                        results.suggestions.push({
+                            line: lineNum,
+                            message: 'Replace float(value) with: value + 0.0',
+                            type: 'fix_suggestion',
+                            code: trimmed
+                        });
+                    } else if (func === 'int') {
+                        results.suggestions.push({
+                            line: lineNum,
+                            message: 'Replace int(value) with: value // 1 (for integers) or use mathematical operations',
+                            type: 'fix_suggestion',
+                            code: trimmed
+                        });
+                    } else if (func === 'str') {
+                        results.suggestions.push({
+                            line: lineNum,
+                            message: 'Replace str(value) with: "" + str(value) or use f-strings',
+                            type: 'fix_suggestion',
+                            code: trimmed
+                        });
+                    } else if (func === 'bool') {
+                        results.suggestions.push({
+                            line: lineNum,
+                            message: 'Replace bool(value) with explicit comparison: value != 0, value != "", etc.',
+                            type: 'fix_suggestion',
+                            code: trimmed
+                        });
+                    } else if (func === 'len') {
+                        results.suggestions.push({
+                            line: lineNum,
+                            message: 'Replace len(obj) with object-specific methods or manual counting',
+                            type: 'fix_suggestion',
+                            code: trimmed
+                        });
+                    }
                 }
             }
 

@@ -2,7 +2,7 @@
   "name": "xian-contract-linter",
   "displayName": "Xian Contract Linter",
   "description": "Real-time linter for Xian contracts with framework-specific validation",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "publisher": "xian-dev",
   "icon": "xianlogo.png",
   "repository": {
@@ -37,7 +37,14 @@
     "theme": "dark"
   },
   "activationEvents": [
-    "onLanguage:python"
+    "onLanguage:python",
+    "onCommand:xianLinter.importWallet",
+    "onCommand:xianLinter.configureRpc",
+    "onCommand:xianLinter.showWalletInfo",
+    "onCommand:xianLinter.removeWallet",
+    "onCommand:xianLinter.deployContract",
+    "onCommand:xianLinter.lintCurrentFile",
+    "onCommand:xianLinter.toggleLinter"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -89,6 +96,35 @@
         "command": "xianLinter.toggleLinter",
         "title": "Toggle Linter",
         "category": "Xian Linter"
+      },
+      {
+        "command": "xianLinter.deployContract",
+        "title": "Deploy Contract",
+        "category": "Xian Linter",
+        "icon": {
+          "light": "icons/deploy-light.svg",
+          "dark": "icons/deploy-dark.svg"
+        }
+      },
+      {
+        "command": "xianLinter.importWallet",
+        "title": "Import Wallet",
+        "category": "Xian Wallet"
+      },
+      {
+        "command": "xianLinter.configureRpc",
+        "title": "Configure RPC",
+        "category": "Xian Wallet"
+      },
+      {
+        "command": "xianLinter.showWalletInfo",
+        "title": "Show Wallet Info",
+        "category": "Xian Wallet"
+      },
+      {
+        "command": "xianLinter.removeWallet",
+        "title": "Remove Wallet",
+        "category": "Xian Wallet"
       }
     ],
     "menus": {
@@ -98,6 +134,13 @@
           "when": "resourceExtname == .py",
           "group": "navigation"
         }
+      ],
+      "editor/title": [
+        {
+          "command": "xianLinter.deployContract",
+          "when": "resourceExtname == .py",
+          "group": "navigation@1"
+        }
       ]
     }
   },
@@ -106,8 +149,13 @@
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./"
   },
+  "dependencies": {
+    "node-fetch": "^3.3.2",
+    "tweetnacl": "^1.0.3"
+  },
   "devDependencies": {
-    "@types/node": "16.x",
+    "@types/node": "^18.19.122",
+    "@types/node-fetch": "^2.6.13",
     "@types/vscode": "^1.74.0",
     "@vscode/vsce": "^3.6.0",
     "typescript": "^4.9.4"

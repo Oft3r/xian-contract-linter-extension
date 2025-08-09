@@ -4,11 +4,20 @@ Real-time linter for Xian smart contracts that provides framework-specific valid
 
 ## 🚀 Features
 
+### Linting & Analysis
 - **Real-time analysis** while you write code
 - **Automatic detection** of Xian contracts (files with `con_` prefix or containing specific elements)
 - **Specific validation** of Xian rules and restrictions
 - **No external dependencies** - everything works locally
-- **Complete integration** with VS Code Insiders
+- **Complete integration** with VS Code
+
+### Wallet Integration & Deployment 🆕
+- **🔐 Secure wallet management** - Import and store your private keys securely (encrypted in SecretStorage)
+- **💰 Wallet info with native balance** - View XIAN balance directly in the extension
+- **🚀 One-click deployment** - Deploy contracts directly from VS Code
+- **⚙️ Network configuration** - Configure RPC and explorer URLs
+- **📊 Transaction monitoring** - Track deployment status and view in explorer
+- **🔒 Password protection** - Encrypted private key storage
 
 ## 🔍 What it detects
 
@@ -63,8 +72,39 @@ The extension works automatically:
 
 ### Available commands
 
+#### Linting Commands
 - `Xian Linter: Analyze current file` - Analyzes the active file
 - `Xian Linter: Toggle Linter` - Toggle the linter
+
+#### Wallet & Deployment Commands 🆕
+- `Xian Wallet: Import Wallet` - Import your private key to enable deployment
+- `Xian Wallet: Configure RPC` - Set up network configuration
+- `Xian Wallet: Show Wallet Info` - View wallet, native balance, and network information
+- `Xian Wallet: Remove Wallet` - Remove wallet from extension
+- `Xian Linter: Deploy Contract` - Deploy the current contract (button in tab bar)
+
+## 🚀 Getting Started with Contract Deployment
+
+### 1. Import Your Wallet
+1. Open Command Palette (`Ctrl+Shift+P`)
+2. Run `Xian Wallet: Import Wallet`
+3. Enter your 64-character private key
+4. Set a secure password for encryption
+5. Optionally configure RPC settings
+
+### 2. Deploy a Contract
+1. Open a Xian contract file (`.py` with `con_` prefix or containing `@export`)
+2. Click the deploy button (🚀) in the tab bar, or use `Xian Linter: Deploy Contract`
+3. Enter contract name (must start with `con_`)
+4. Provide constructor arguments (JSON format, if needed)
+5. Set stamp limit (gas limit)
+6. Enter your wallet password
+7. Monitor deployment progress and get transaction hash
+
+### 3. Network Configuration
+- Default: Xian mainnet (`https://node.xian.org`)
+- Use `Xian Wallet: Configure RPC` to change networks
+- Supports custom RPC and explorer URLs
 
 ## 🔧 Development
 

@@ -2,6 +2,41 @@
 
 All notable changes to the Xian Contract Linter extension will be documented in this file.
 
+## [1.2.0] - 2025-08-09
+
+### Added
+- Wallet Info now shows native balance (XIAN) fetched from `currency.balances:<address>`
+
+### Changed
+- Nonce retrieval aligned with wallide using `/get_next_nonce/<address>`
+- RPC calls include `Accept: application/json` and better error messages when RPC returns HTML
+- Placeholder wallet commands registered when crypto deps are unavailable (linter remains functional)
+
+### Fixed
+- Avoid base64 decoding when ABCI value is `AA==` or empty
+
+## [1.1.0] - 2025-07-24
+
+### Added
+- **Enhanced Builtin Detection**: Added detection for prohibited Python builtins
+  - `float()` - Suggests using `value + 0.0` for ContractingDecimal conversion
+  - `int()` - Suggests using `value // 1` for integer conversion
+  - `str()` - Suggests using `"" + value` for string conversion
+  - `bool()` - Suggests using explicit comparisons
+  - `len()` - Suggests using object-specific methods
+  - `type()` - Marked as prohibited builtin
+  - `isinstance()` - Suggests using explicit comparisons
+
+### Improved
+- **Error Classification**: Builtin violations now classified as `syntax_error` (higher severity)
+- **Fix Suggestions**: Specific replacement suggestions for each prohibited builtin
+- **Pattern Matching**: Enhanced regex patterns for better detection accuracy
+- **User Experience**: More actionable error messages with concrete solutions
+
+### Fixed
+- Better handling of ContractingDecimal type conversion issues
+- Improved error categorization for VS Code diagnostics
+
 ## [1.0.0] - 2025-07-24
 
 ### Added

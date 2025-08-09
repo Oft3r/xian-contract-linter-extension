@@ -17,8 +17,8 @@ if %errorlevel% neq 0 (
 )
 
 REM Check if VSIX file exists
-if not exist "xian-contract-linter-1.0.0.vsix" (
-    echo ERROR: xian-contract-linter-1.0.0.vsix file not found
+if not exist "xian-contract-linter-1.1.0.vsix" (
+    echo ERROR: xian-contract-linter-1.1.0.vsix file not found
     echo.
     echo Make sure this file is in the same folder as the installer.
     echo.
@@ -30,7 +30,7 @@ echo Installing Xian Contract Linter extension...
 echo.
 
 REM Install the extension
-code-insiders --install-extension xian-contract-linter-1.0.0.vsix
+code-insiders --install-extension xian-contract-linter-1.1.0.vsix
 
 if %errorlevel% equ 0 (
     echo.
@@ -43,6 +43,7 @@ if %errorlevel% equ 0 (
     echo - Real-time analysis of Xian contracts
     echo - Automatic detection of errors and warnings
     echo - Best practice suggestions
+    echo - Deploy button in tab bar (triangle icon)
     echo - No external dependencies
     echo.
     echo Enjoy programming Xian contracts! 🚀
@@ -55,7 +56,7 @@ if %errorlevel% equ 0 (
     echo 2. Go to Extensions (Ctrl+Shift+X)
     echo 3. Click the three dots (...) 
     echo 4. Select "Install from VSIX..."
-    echo 5. Select the xian-contract-linter-1.0.0.vsix file
+    echo 5. Select the xian-contract-linter-1.1.0.vsix file
 )
 
 echo.
