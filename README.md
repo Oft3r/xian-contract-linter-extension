@@ -106,7 +106,15 @@ The extension works automatically:
 - Use `Xian Wallet: Configure RPC` to change networks
 - Supports custom RPC and explorer URLs
 
-## 🔧 Development
+## � Security recommendations
+
+Practical recommendations:
+- Use strong, unique passwords preferably > 12 characters (ideally ≥ 16) to protect your private key encryption.
+- Treat this wallet as “hot wallet”: keep limited funds and use trusted environments (VS Code Workspace Trust, up-to-date OS, trusted extensions).
+- Keep the RPC on HTTPS and avoid unofficial URLs.
+- Avoid sharing screenshots/logs that may include sensitive data.
+
+## �🔧 Development
 
 To compile the extension:
 
